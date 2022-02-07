@@ -10,7 +10,7 @@ function splitArr(): string[] {
 }
 
 interface Iprops {
-  correct: Boolean;
+  correct: Boolean | null;
   value: string;
   index: number;
 }
@@ -18,9 +18,11 @@ interface Iprops {
 function Letter(props: Iprops): ReactElement {
   const { correct, index, value } = props;
 
-  if (correct) return <span style={{ color: "green" }}>{value}</span>;
+  if (correct == true)
+    return <span style={{ backgroundColor: "green" }}>{value}</span>;
 
-  if (!correct) return <span style={{ color: "red" }}>{value}</span>;
+  if (correct == false)
+    return <span style={{ backgroundColor: "red" }}>{value}</span>;
 
   return <span>{value}</span>;
 }
@@ -42,6 +44,14 @@ const TypingBar = () => {
     setInput(event.target.value);
   }
 
+  function check(index: number): Boolean | null {
+    if (index > input.length - 1) return null;
+
+    if (content[index] === input[index]) return true;
+
+    return false;
+  }
+
   return (
     <>
       <Wrapper>
@@ -51,7 +61,7 @@ const TypingBar = () => {
               key={index}
               value={letter}
               index={index}
-              correct={input[input.length - 1] === letter}
+              correct={check(index)}
             />
           );
         })}
