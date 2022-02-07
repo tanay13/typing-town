@@ -7,7 +7,6 @@ const App = () => {
     <>
       <GlobalStyles />
       <h2>Typing Town</h2>
-      <Text />
       <TypingBar />
     </>
   );
